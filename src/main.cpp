@@ -1,11 +1,11 @@
 #include "main.h"
 
-lv_obj_t * myButton;
-lv_obj_t * myButtonLabel;
+lv_obj_t * autonBtn;
+lv_obj_t * autonBtnLabel;
 lv_obj_t * myLabel;
 
-lv_style_t myButtonStyleREL; //relesed style
-lv_style_t myButtonStylePR; //pressed style
+lv_style_t autonBtnStyleREL; //relesed style
+lv_style_t autonBtnStylePR; //pressed style
 
 static lv_res_t btn_click_action(lv_obj_t * btn)
 {
@@ -23,32 +23,32 @@ static lv_res_t btn_click_action(lv_obj_t * btn)
 
 void initialize()
 {
-	lv_style_copy(&myButtonStyleREL, &lv_style_plain);
-    myButtonStyleREL.body.main_color = LV_COLOR_MAKE(200, 200, 255);
-	myButtonStyleREL.body.grad_color = LV_COLOR_MAKE(200, 200, 255);
-    myButtonStyleREL.body.radius = 0;
-    myButtonStyleREL.text.color = LV_COLOR_MAKE(255, 255, 255);
+	lv_style_copy(&autonBtnStyleREL, &lv_style_plain);
+    autonBtnStyleREL.body.main_color = LV_COLOR_MAKE(200, 200, 255);
+	autonBtnStyleREL.body.grad_color = LV_COLOR_MAKE(200, 200, 255);
+    autonBtnStyleREL.body.radius = 0;
+    autonBtnStyleREL.text.color = LV_COLOR_MAKE(255, 255, 255);
 
-    lv_style_copy(&myButtonStylePR, &lv_style_plain);
-    myButtonStylePR.body.main_color = LV_COLOR_MAKE(255, 255, 255);
-	myButtonStylePR.body.grad_color = LV_COLOR_MAKE(255, 255, 255);
-    myButtonStylePR.body.radius = 0;
-    myButtonStylePR.text.color = LV_COLOR_MAKE(255, 255, 255);
+    lv_style_copy(&autonBtnStylePR, &lv_style_plain);
+    autonBtnStylePR.body.main_color = LV_COLOR_MAKE(255, 255, 255);
+	autonBtnStylePR.body.grad_color = LV_COLOR_MAKE(255, 255, 255);
+    autonBtnStylePR.body.radius = 0;
+    autonBtnStylePR.text.color = LV_COLOR_MAKE(255, 255, 255);
 
-    myButton = lv_btn_create(lv_scr_act(), NULL); //create button, lv_scr_act() is deafult screen object
-    lv_obj_set_free_num(myButton, 0); //set button is to 0
-    lv_btn_set_action(myButton, LV_BTN_ACTION_CLICK, btn_click_action); //set function to be called on button click
-    lv_btn_set_style(myButton, LV_BTN_STYLE_REL, &myButtonStyleREL); //set the relesed style
-    lv_btn_set_style(myButton, LV_BTN_STYLE_PR, &myButtonStylePR); //set the pressed style
-    lv_obj_set_size(myButton, 20000, 50); //set the button size
-    lv_obj_align(myButton, NULL, LV_ALIGN_IN_RIGHT_MID, -20, 0); //set the position to top mid
+    autonBtn = lv_btn_create(lv_scr_act(), NULL); //create button, lv_scr_act() is deafult screen object
+    lv_obj_set_free_num(autonBtn, 0); //set button is to 0
+    lv_btn_set_action(autonBtn, LV_BTN_ACTION_CLICK, btn_click_action); //set function to be called on button click
+    lv_btn_set_style(autonBtn, LV_BTN_STYLE_REL, &autonBtnStyleREL); //set the relesed style
+    lv_btn_set_style(autonBtn, LV_BTN_STYLE_PR, &autonBtnStylePR); //set the pressed style
+    lv_obj_set_size(autonBtn, 200, 50); //set the button size
+    lv_obj_align(autonBtn, NULL, LV_ALIGN_IN_TOP_RIGHT, -10, 10); //set the position to top mid
 
-    myButtonLabel = lv_label_create(myButton, NULL); //create label and puts it inside of the button
-    lv_label_set_text(myButtonLabel, "Click the Button"); //sets label text
+    autonBtnLabel = lv_label_create(autonBtn, NULL); //create label and puts it inside of the button
+    lv_label_set_text(autonBtnLabel, "Autonomous"); //sets label text
 
     myLabel = lv_label_create(lv_scr_act(), NULL); //create label and puts it on the screen
     lv_label_set_text(myLabel, "Button has not been clicked yet"); //sets label text
-    lv_obj_align(myLabel, NULL, LV_ALIGN_IN_LEFT_MID, 10, 0); //set the position to center
+    lv_obj_align(myLabel, NULL, LV_ALIGN_IN_LEFT_MID, 0, 0); //set the position to center
 }
 
 /**

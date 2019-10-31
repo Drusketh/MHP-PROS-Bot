@@ -1,14 +1,54 @@
 #include "main.h"
 
-/**
- * Runs initialization code. This occurs as soon as the program is started.
- *
- * All other competition modes are blocked by initialize; it is recommended
- * to keep execution time for this mode under a few seconds.
- */
-void initialize() {
-	pros::lcd::initialize();
-	pros::lcd::set_text(1, "Hello PROS User!");
+lv_obj_t * autonBtn;
+lv_obj_t * autonBtnLabel;
+lv_obj_t * myLabel;
+
+lv_style_t autonBtnStyleREL; //relesed style
+lv_style_t autonBtnStylePR; //pressed style
+
+static lv_res_t btn_click_action(lv_obj_t * btn)
+{
+	uint8_t id = lv_obj_get_free_num(btn); //id usefull when there are multiple buttons
+
+    if(id == 0)
+    {
+    	char buffer[100];
+ 		sprintf(buffer, "button was clicked %i milliseconds from start", pros::millis());
+ 		lv_label_set_text(myLabel, buffer);
+    }
+
+    return LV_RES_OK;
+}
+
+void initialize()
+{
+	lv_style_copy(&autonBtnStyleREL, &lv_style_plain);
+    autonBtnStyleREL.body.main_color = LV_COLOR_MAKE(200, 200, 255);
+	autonBtnStyleREL.body.grad_color = LV_COLOR_MAKE(200, 200, 255);
+    autonBtnStyleREL.body.radius = 0;
+    autonBtnStyleREL.text.color = LV_COLOR_MAKE(255, 255, 255);
+
+    lv_style_copy(&autonBtnStylePR, &lv_style_plain);
+    autonBtnStylePR.body.main_color = LV_COLOR_MAKE(255, 255, 255);
+	autonBtnStylePR.body.grad_color = LV_COLOR_MAKE(255, 255, 255);
+    autonBtnStylePR.body.radius = 0;
+    autonBtnStylePR.text.color = LV_COLOR_MAKE(255, 255, 255);
+
+    autonBtn = lv_btn_create(lv_scr_act(), NULL); //create button, lv_scr_act() is deafult screen object
+    lv_obj_set_free_num(autonBtn, 0); //set button is to 0
+    lv_btn_set_action(autonBtn, LV_BTN_ACTION_CLICK, btn_click_action); //set function to be called on button click
+    lv_btn_set_style(autonBtn, LV_BTN_STYLE_REL, &autonBtnStyleREL); //set the relesed style
+    lv_btn_set_style(autonBtn, LV_BTN_STYLE_PR, &autonBtnStylePR); //set the pressed style
+    lv_obj_set_size(autonBtn, 200, 50); //set the button size
+    lv_obj_align(autonBtn, NULL, LV_ALIGN_IN_TOP_RIGHT, -10, 10); //set the position to top mid
+
+    autonBtnLabel = lv_label_create(autonBtn, NULL); //create label and puts it inside of the button
+    lv_label_set_text(autonBtnLabel, "Autonomous"); //sets label text
+
+    myLabel = lv_label_create(lv_scr_act(), NULL); //create label and puts it on the screen
+    lv_label_set_text(myLabel, "Button has not been clicked yet"); //sets label text
+    lv_obj_align(myLabel, NULL, LV_ALIGN_IN_LEFT_MID, 0, 0); //set the position to center
 }
 
 /**
