@@ -1,8 +1,7 @@
 #include "main.h"
 #include "display/lvgl.h"
 
-#include "logo.c"
-
+//#include "logo.c"
 
 lv_obj_t * autonBtn;
 lv_obj_t * autonBtnLabel;
@@ -40,6 +39,7 @@ void initialize()
 	autonBtnStylePR.body.grad_color = LV_COLOR_MAKE(255, 255, 255);
     autonBtnStylePR.body.radius = 0;
     autonBtnStylePR.text.color = LV_COLOR_MAKE(255, 255, 255);
+
 
     autonBtn = lv_btn_create(lv_scr_act(), NULL);
     lv_obj_set_free_num(autonBtn, 0);
@@ -156,6 +156,11 @@ void opcontrol() {
 			l_intake.move_velocity(-100);
 			r_intake.move_velocity(-100);
 		}
+
+        else {
+            l_intake.move_velocity(0);
+            r_intake.move_velocity(0);
+        }
      	pros::delay(2);
    	}
 }
