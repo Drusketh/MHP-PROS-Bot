@@ -1,6 +1,14 @@
 #include "main.h"
 #include "display/lvgl.h"
 
+#define LEFT_WHEELS_PORT 1
+#define RIGHT_WHEELS_PORT 10
+#define L_ARM_PORT 4
+#define R_ARM_PORT 7
+#define L_INTAKE_PORT 12
+#define R_INTAKE_PORT 14
+#define RAMP_PORT 18
+
 //#include "logo.c"
 
 lv_obj_t * autonBtn;
@@ -74,23 +82,17 @@ void competition_initialize() {}
 
 void autonomous() {}
 
-#define LEFT_WHEELS_PORT 1
-#define RIGHT_WHEELS_PORT 10
-#define L_ARM_PORT 4
-#define R_ARM_PORT 7
-#define L_INTAKE_PORT 12
-#define R_INTAKE_PORT 14
-
 void opcontrol() {
  	pros::Motor left_wheels (LEFT_WHEELS_PORT);
    	pros::Motor right_wheels (RIGHT_WHEELS_PORT, true);
    	pros::Controller controller (CONTROLLER_MASTER);
-		pros::Motor l_arm (R_ARM_PORT, MOTOR_GEARSET_36);
-		pros::Motor r_arm (L_ARM_PORT, MOTOR_GEARSET_36);
-		pros::Motor l_intake (L_INTAKE_PORT, MOTOR_GEARSET_36);
-		pros::Motor r_intake (R_INTAKE_PORT, MOTOR_GEARSET_36);
+	pros::Motor l_arm (L_ARM_PORT);
+	pros::Motor r_arm (R_ARM_PORT);
+	pros::Motor l_intake (L_INTAKE_PORT);
+	pros::Motor r_intake (R_INTAKE_PORT, true);
+	pros::Motor ramp (RAMP_PORT);
 
-	while (true) {
+   	while (true) {
      	left_wheels.move(controller.get_analog(ANALOG_LEFT_Y));
      	right_wheels.move(controller.get_analog(ANALOG_RIGHT_Y));
 
@@ -115,14 +117,25 @@ void opcontrol() {
 		}
 
 		else if (controller.get_digital(DIGITAL_L2)) {
-			l_intake.move_velocity(-100);
-			r_intake.move_velocity(-100);
+		l_intake.move_velocity(-100);
+		r_intake.move_velocity(-100);
 		}
 
-        else {
-            l_intake.move_velocity(0);
-            r_intake.move_velocity(0);
-        }
+		else {
+			l_intake.move_velocity(0);
+			r_intake.move_velocity(0);
+		}
+
+		if (controller.get_digital(DIGITAL_A)) {
+			ramp.move_velocity(100);
+		}
+		else if (controller.get_digital(DIGITAL_B)) {
+			ramp.move_velocity(-100);
+		}
+		else {
+			ramp.move_velocity(0);
+		}
+
      	pros::delay(2);
    	}
 }
