@@ -1,12 +1,12 @@
 #include "main.h"
 #include "display/lvgl.h"
 
-#define LEFT_WHEELS_PORT 1
-#define RIGHT_WHEELS_PORT 10
-#define L_ARM_PORT 2
-#define R_ARM_PORT 9
-#define L_INTAKE_PORT 3
-#define R_INTAKE_PORT 9
+#define LEFT_WHEELS_PORT 10
+#define RIGHT_WHEELS_PORT 1
+#define L_ARM_PORT 9
+#define R_ARM_PORT 2
+#define L_INTAKE_PORT 8
+#define R_INTAKE_PORT 3
 #define RAMP_PORT 5
 
 //#include "logo.c"
