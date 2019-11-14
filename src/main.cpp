@@ -86,7 +86,7 @@ void opcontrol() {
  	pros::Motor left_wheels (LEFT_WHEELS_PORT);
    	pros::Motor right_wheels (RIGHT_WHEELS_PORT, true);
    	pros::Controller controller (CONTROLLER_MASTER);
-	pros::Motor l_arm (L_ARM_PORT);
+	pros::Motor l_arm (L_ARM_PORT, true);
 	pros::Motor r_arm (R_ARM_PORT);
 	pros::Motor l_intake (L_INTAKE_PORT);
 	pros::Motor r_intake (R_INTAKE_PORT, true);
@@ -112,8 +112,8 @@ void opcontrol() {
 		}
 
 		if (controller.get_digital(DIGITAL_L1)) {
-			l_intake.move_velocity(100);
-			r_intake.move_velocity(100);
+			l_intake.move_velocity(200);
+			r_intake.move_velocity(200);
 		}
 
 		else if (controller.get_digital(DIGITAL_L2)) {
