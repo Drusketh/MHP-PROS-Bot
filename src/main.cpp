@@ -7,7 +7,8 @@
 #define R_ARM_PORT 2
 #define L_INTAKE_PORT 8
 #define R_INTAKE_PORT 3
-#define RAMP_PORT 5
+#define R_RAMP_PORT 5
+#define L_RAMP_PORT 4
 
 //#include "logo.c"
 
@@ -86,30 +87,31 @@ void opcontrol() {
  	pros::Motor left_wheels (LEFT_WHEELS_PORT);
    	pros::Motor right_wheels (RIGHT_WHEELS_PORT, true);
    	pros::Controller controller (CONTROLLER_MASTER);
-	pros::Motor l_arm (L_ARM_PORT, true);
-	pros::Motor r_arm (R_ARM_PORT);
+	//pros::Motor l_arm (L_ARM_PORT, true);
+	//pros::Motor r_arm (R_ARM_PORT);
 	pros::Motor l_intake (L_INTAKE_PORT);
 	pros::Motor r_intake (R_INTAKE_PORT, true);
-	pros::Motor ramp (RAMP_PORT);
+	pros::Motor r_ramp (R_RAMP_PORT);
+	pros::Motor l_ramp (L_RAMP_PORT, true);
 
    	while (true) {
      	left_wheels.move(controller.get_analog(ANALOG_LEFT_Y));
      	right_wheels.move(controller.get_analog(ANALOG_RIGHT_Y));
 
-		if (controller.get_digital(DIGITAL_R1)) {
-			l_arm.move_velocity(100);
-			r_arm.move_velocity(100);
-		}
+		//if (controller.get_digital(DIGITAL_R1)) {
+		//	l_arm.move_velocity(100);
+		//	r_arm.move_velocity(100);
+		//}
 
-		else if (controller.get_digital(DIGITAL_R2)) {
-			l_arm.move_velocity(-100);
-			r_arm.move_velocity(-100);
-		}
+		//else if (controller.get_digital(DIGITAL_R2)) {
+		//	l_arm.move_velocity(-100);
+		//	r_arm.move_velocity(-100);
+		//}
 
-		else {
-			l_arm.move_velocity(0);
-			r_arm.move_velocity(0);
-		}
+		//else {
+		//	l_arm.move_velocity(0);
+		//	r_arm.move_velocity(0);
+		//}
 
 		if (controller.get_digital(DIGITAL_L1)) {
 			l_intake.move_velocity(200);
@@ -127,13 +129,16 @@ void opcontrol() {
 		}
 
 		if (controller.get_digital(DIGITAL_A)) {
-			ramp.move_velocity(100);
+			l_ramp.move_velocity(100);
+			r_ramp.move_velocity(100);
 		}
 		else if (controller.get_digital(DIGITAL_B)) {
-			ramp.move_velocity(-100);
+			l_ramp.move_velocity(-100);
+			r_ramp.move_velocity(-100);
 		}
 		else {
-			ramp.move_velocity(0);
+			l_ramp.move_velocity(0);
+			r_ramp.move_velocity(0);
 		}
 
      	pros::delay(2);
