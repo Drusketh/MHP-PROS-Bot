@@ -3,12 +3,12 @@
 
 #define LEFT_WHEELS_PORT 10
 #define RIGHT_WHEELS_PORT 1
-#define L_ARM_PORT 9
-#define R_ARM_PORT 2
-#define L_INTAKE_PORT 8
-#define R_INTAKE_PORT 3
-#define R_RAMP_PORT 5
-#define L_RAMP_PORT 4
+#define L_ARM_PORT 7
+#define R_ARM_PORT 4
+#define L_INTAKE_PORT 3
+#define R_INTAKE_PORT 8
+#define R_RAMP_PORT 2
+#define L_RAMP_PORT 9
 
 //#include "logo.c"
 
@@ -81,60 +81,79 @@ void disabled() {}
 
 void competition_initialize() {}
 
-void autonomous() {}
+void autonomous() {
+	pros::Motor left_wheels (LEFT_WHEELS_PORT);
+	pros::Motor right_wheels (RIGHT_WHEELS_PORT, true);
+
+	right_wheels.move_relative(2000, 127);
+	left_wheels.move_relative(2000, 127);
+	pros::delay(2000);
+	right_wheels.move_relative(2000, -127);
+	left_wheels.move_relative(2000, -127);
+	pros::delay(1000);
+	//pros::stop();
+}
 
 void opcontrol() {
+
+	//ANALOG_LEFT_Y & ANALOG_RIGHT_Y = Tank Drive
+	//DIGITAL_A = Lift Arms
+	//DIGITAL_B = Lower Arms
+	//DIGITAL_L1 = Intake In
+	//DIGITAL_L2 = Intake Out
+	//DIGITAL_R1 = Lift Ramp
+	//DIGITAL_R2 = Lower Ramp
+
  	pros::Motor left_wheels (LEFT_WHEELS_PORT);
-   	pros::Motor right_wheels (RIGHT_WHEELS_PORT, true);
-   	pros::Controller controller (CONTROLLER_MASTER);
-	//pros::Motor l_arm (L_ARM_PORT, true);
-	//pros::Motor r_arm (R_ARM_PORT);
+	pros::Motor right_wheels (RIGHT_WHEELS_PORT, true);
+  	pros::Controller controller (CONTROLLER_MASTER);
+	pros::Motor l_arm (L_ARM_PORT);
+	pros::Motor r_arm (R_ARM_PORT);
 	pros::Motor l_intake (L_INTAKE_PORT);
 	pros::Motor r_intake (R_INTAKE_PORT, true);
 	pros::Motor r_ramp (R_RAMP_PORT);
-	pros::Motor l_ramp (L_RAMP_PORT, true);
+	pros::Motor l_ramp (L_RAMP_PORT);
+	l_ramp.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+	r_ramp.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 
-   	while (true) {
-     	left_wheels.move(controller.get_analog(ANALOG_LEFT_Y));
-     	right_wheels.move(controller.get_analog(ANALOG_RIGHT_Y));
+	while (true) {
+	    left_wheels.move(controller.get_analog(ANALOG_RIGHT_Y));
+   		right_wheels.move(controller.get_analog(ANALOG_LEFT_Y));
 
-		//if (controller.get_digital(DIGITAL_R1)) {
-		//	l_arm.move_velocity(100);
-		//	r_arm.move_velocity(100);
-		//}
+		if (controller.get_digital(DIGITAL_A)) {
+			l_arm.move_velocity(90);
+			r_arm.move_velocity(90);
+		}
 
-		//else if (controller.get_digital(DIGITAL_R2)) {
-		//	l_arm.move_velocity(-100);
-		//	r_arm.move_velocity(-100);
-		//}
-
-		//else {
-		//	l_arm.move_velocity(0);
-		//	r_arm.move_velocity(0);
-		//}
+		else if (controller.get_digital(DIGITAL_X)) {
+			l_arm.move_velocity(-90);
+			r_arm.move_velocity(-90);
+		}
+		else {
+			l_arm.move_velocity(0);
+			r_arm.move_velocity(0);
+		}
 
 		if (controller.get_digital(DIGITAL_L1)) {
-			l_intake.move_velocity(200);
-			r_intake.move_velocity(200);
+			l_intake.move_velocity(-105);
+			r_intake.move_velocity(-105);
 		}
-
 		else if (controller.get_digital(DIGITAL_L2)) {
-		l_intake.move_velocity(-100);
-		r_intake.move_velocity(-100);
+			l_intake.move_velocity(105);
+			r_intake.move_velocity(105);
 		}
-
 		else {
 			l_intake.move_velocity(0);
 			r_intake.move_velocity(0);
 		}
 
-		if (controller.get_digital(DIGITAL_A)) {
-			l_ramp.move_velocity(100);
-			r_ramp.move_velocity(100);
+		if (controller.get_digital(DIGITAL_R1)) {
+			l_ramp.move_velocity(45);
+			r_ramp.move_velocity(45);
 		}
-		else if (controller.get_digital(DIGITAL_B)) {
-			l_ramp.move_velocity(-100);
-			r_ramp.move_velocity(-100);
+		else if (controller.get_digital(DIGITAL_R2)) {
+			l_ramp.move_velocity(-45);
+			r_ramp.move_velocity(-45);
 		}
 		else {
 			l_ramp.move_velocity(0);
