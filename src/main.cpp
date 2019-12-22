@@ -108,9 +108,9 @@ void opcontrol() {
 	pros::Motor right_wheels (RIGHT_WHEELS_PORT, true);
   	pros::Controller controller (CONTROLLER_MASTER);
 	pros::Motor l_arm (L_ARM_PORT);
-	pros::Motor r_arm (R_ARM_PORT);
-	pros::Motor l_intake (L_INTAKE_PORT);
-	pros::Motor r_intake (R_INTAKE_PORT, true);
+	pros::Motor r_arm (R_ARM_PORT, true);
+	pros::Motor l_intake (L_INTAKE_PORT, true);
+	pros::Motor r_intake (R_INTAKE_PORT);
 	pros::Motor r_ramp (R_RAMP_PORT);
 	pros::Motor l_ramp (L_RAMP_PORT);
 	l_ramp.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
@@ -120,12 +120,12 @@ void opcontrol() {
 	    left_wheels.move(controller.get_analog(ANALOG_RIGHT_Y));
    		right_wheels.move(controller.get_analog(ANALOG_LEFT_Y));
 
-		if (controller.get_digital(DIGITAL_A)) {
+		if (controller.get_digital(DIGITAL_L1)) {
 			l_arm.move_velocity(90);
 			r_arm.move_velocity(90);
 		}
 
-		else if (controller.get_digital(DIGITAL_X)) {
+		else if (controller.get_digital(DIGITAL_L2)) {
 			l_arm.move_velocity(-90);
 			r_arm.move_velocity(-90);
 		}
@@ -134,11 +134,11 @@ void opcontrol() {
 			r_arm.move_velocity(0);
 		}
 
-		if (controller.get_digital(DIGITAL_L1)) {
+		if (controller.get_digital(DIGITAL_R1)) {
 			l_intake.move_velocity(-105);
 			r_intake.move_velocity(-105);
 		}
-		else if (controller.get_digital(DIGITAL_L2)) {
+		else if (controller.get_digital(DIGITAL_R2)) {
 			l_intake.move_velocity(105);
 			r_intake.move_velocity(105);
 		}
@@ -147,11 +147,11 @@ void opcontrol() {
 			r_intake.move_velocity(0);
 		}
 
-		if (controller.get_digital(DIGITAL_R1)) {
+		if (controller.get_digital(DIGITAL_X)) {
 			l_ramp.move_velocity(45);
 			r_ramp.move_velocity(45);
 		}
-		else if (controller.get_digital(DIGITAL_R2)) {
+		else if (controller.get_digital(DIGITAL_A)) {
 			l_ramp.move_velocity(-45);
 			r_ramp.move_velocity(-45);
 		}
