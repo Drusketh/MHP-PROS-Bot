@@ -106,11 +106,11 @@ void opcontrol() {
 
  	pros::Motor left_wheels (LEFT_WHEELS_PORT);
 	pros::Motor right_wheels (RIGHT_WHEELS_PORT, true);
-  pros::Controller controller (CONTROLLER_MASTER);
+  	pros::Controller controller (CONTROLLER_MASTER);
 	pros::Motor l_arm (L_ARM_PORT);
-	pros::Motor r_arm (R_ARM_PORT,true);
+	pros::Motor r_arm (R_ARM_PORT);
 	pros::Motor l_intake (L_INTAKE_PORT);
-	pros::Motor r_intake (R_INTAKE_PORT);
+	pros::Motor r_intake (R_INTAKE_PORT, true);
 	pros::Motor r_ramp (R_RAMP_PORT);
 	pros::Motor l_ramp (L_RAMP_PORT);
 	l_ramp.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
