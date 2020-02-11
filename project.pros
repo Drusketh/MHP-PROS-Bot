@@ -138,7 +138,10 @@
                 "target": "v5",
                 "user_files": [
                     "Makefile",
-                    "src/main.cpp",
+                    "src/initialize.cpp",
+                    "src/motorfunc.cpp",
+                    "src/autonomous.cpp",
+                    "src/opcontrol.cpp",
                     "include/main.hh",
                     "src/main.cc",
                     "include/main.h",
