@@ -1,5 +1,5 @@
 #include "main.h"
-#include "motorfunc.cpp"
+//#include "motorfunc.cpp"
 #include "display/lvgl.h"
 
 lv_obj_t * autonBtn;
