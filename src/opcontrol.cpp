@@ -1,6 +1,4 @@
 #include "main.h"
-#include "motorfunc.hpp"
-#include "motorfunc.cpp"
 
 void opcontrol() {
 	//DIGITAL_A = Lift Arms
@@ -36,18 +34,15 @@ void opcontrol() {
 			move_arms(0);
 		}
 
-		// if (controller.get_digital(DIGITAL_R1)) {
-		// 	l_intake.move_velocity(105);
-		// 	r_intake.move_velocity(105);
-		// }
-		// else if (controller.get_digital(DIGITAL_R2)) {
-		// 	l_intake.move_velocity(-105);
-		// 	r_intake.move_velocity(-105);
-		// }
-		// else {
-		// 	l_intake.move_velocity(0);
-		// 	r_intake.move_velocity(0);
-		// }
+		if (controller.get_digital(DIGITAL_R1)) {
+			move_intake(105);
+		}
+		else if (controller.get_digital(DIGITAL_R2)) {
+			move_intake(-105);
+		}
+		else {
+			move_intake(0);
+		}
 
      	pros::delay(2);
    	}
