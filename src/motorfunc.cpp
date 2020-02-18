@@ -1,23 +1,24 @@
 #include "main.h"
 
-#define LEFT_WHEELS_PORT 1
-#define RIGHT_WHEELS_PORT 10
-#define L_ARM_PORT 4
-#define R_ARM_PORT 7
+#define L_WHEEL_FRONT_PORT 1
+#define L_WHEEL_BACK_PORT 2
 #define L_INTAKE_PORT 3
+#define ARM_PORT 4
+#define TRAY_PORT 7
 #define R_INTAKE_PORT 8
-#define F_TRAY_PORT 2
-#define B_TRAY_PORT 9
+#define R_WHEEL_BACK_PORT 9
+#define R_WHEEL_FRONT_PORT 10
 
-pros::Controller controller (CONTROLLER_MASTER);
-pros::Motor left_wheels (LEFT_WHEELS_PORT);
-pros::Motor right_wheels (RIGHT_WHEELS_PORT, true);
-pros::Motor l_arm (L_ARM_PORT);
-pros::Motor r_arm (R_ARM_PORT, true);
+
+pros::Motor l_wheel_front (L_WHEEL_FRONT_PORT);
+pros::Motor l_wheel_back (L_WHEEL_BACK_PORT, true);
 pros::Motor l_intake (L_INTAKE_PORT);
+pros::Motor arm (ARM_PORT);
+pros::Controller controller (CONTROLLER_MASTER);
+pros::Motor tray (TRAY_PORT);
 pros::Motor r_intake (R_INTAKE_PORT, true);
-pros::Motor f_tray (F_TRAY_PORT);
-pros::Motor b_tray (B_TRAY_PORT);
+pros::Motor r_wheel_back (R_WHEEL_BACK_PORT, true);
+pros::Motor r_wheel_front (R_WHEEL_FRONT_PORT);
 
 //Math
 int
@@ -48,6 +49,9 @@ reset() {
     r_arm.set_zero_position(0);
     f_tray.set_zero_position(0);
     b_tray.set_zero_position(0);
+
+    left_wheels.tare_position();
+    right_wheels.tare_position();
 }
 
 //Set motors
@@ -57,18 +61,30 @@ move_tank(int input_l, int input_r) {
     right_wheels.move(input_r);
 }
 
-
 void
 move_tray(int input) {
     f_tray.move(input);
     b_tray.move(input);
 }
 
+
 void
 move_arms(int input) {
     l_arm.move(input);
     r_arm.move(input);
 }
+
+float
+get_arms() {
+    return l_arm.get_position();
+}
+
+void
+set_arms(double position, int vel) {
+    l_arm.move_relative(position, vel);
+    r_arm.move_relative(position, vel);
+}
+
 
 void
 move_intake(int input) {
@@ -101,4 +117,11 @@ arm_pid(void*) {
         move_arms((a_target-l_arm.get_position())*0.5);
         pros::delay(20);
     }
+}
+
+
+void
+auton_tank(int input_l, int input_r) {
+    left_wheels.move(input_l);
+    right_wheels.move(input_r);
 }

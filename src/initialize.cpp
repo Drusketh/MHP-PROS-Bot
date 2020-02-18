@@ -1,5 +1,4 @@
 #include "main.h"
-//#include "motorfunc.cpp"
 #include "display/lvgl.h"
 
 lv_obj_t * autonBtn;
@@ -27,6 +26,7 @@ static lv_res_t btn_click_action(lv_obj_t * btn)
 
 void initialize()
 {
+	reset();
 	/*Set a non-white background color for the screen to see the alpha is working on the image*/
 	static lv_style_t new_style;
 	lv_style_copy(&new_style, &lv_style_scr);
