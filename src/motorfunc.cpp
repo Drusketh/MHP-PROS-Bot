@@ -10,14 +10,14 @@
 #define R_WHEEL_FRONT_PORT 10
 
 
-pros::Motor l_wheel_front (L_WHEEL_FRONT_PORT);
+pros::Motor l_wheel_front (L_WHEEL_FRONT_PORT, true);
 pros::Motor l_wheel_back (L_WHEEL_BACK_PORT, true);
 pros::Motor l_intake (L_INTAKE_PORT);
 pros::Motor arm (ARM_PORT);
 pros::Controller controller (CONTROLLER_MASTER);
 pros::Motor tray (TRAY_PORT);
 pros::Motor r_intake (R_INTAKE_PORT, true);
-pros::Motor r_wheel_back (R_WHEEL_BACK_PORT, true);
+pros::Motor r_wheel_back (R_WHEEL_BACK_PORT);
 pros::Motor r_wheel_front (R_WHEEL_FRONT_PORT);
 
 //Math
@@ -43,46 +43,43 @@ void
 reset() {
     l_intake.set_brake_mode(MOTOR_BRAKE_HOLD);
     r_intake.set_brake_mode(MOTOR_BRAKE_HOLD);
-    l_arm.set_brake_mode(MOTOR_BRAKE_HOLD);
-    r_arm.set_brake_mode(MOTOR_BRAKE_HOLD);
-    l_arm.set_zero_position(0);
-    r_arm.set_zero_position(0);
-    f_tray.set_zero_position(0);
-    b_tray.set_zero_position(0);
-
-    left_wheels.tare_position();
-    right_wheels.tare_position();
+    arm.set_brake_mode(MOTOR_BRAKE_HOLD);
+    arm.set_zero_position(0);
+    tray.set_zero_position(0);
+    l_wheel_front.tare_position();
+    l_wheel_back.tare_position();
+    r_wheel_front.tare_position();
+    r_wheel_back.tare_position();
 }
 
 //Set motors
 void
 move_tank(int input_l, int input_r) {
-    left_wheels.move(input_l);
-    right_wheels.move(input_r);
+    l_wheel_front.move(input_l);
+    l_wheel_back.move(input_l);
+    r_wheel_front.move(input_r);
+    r_wheel_back.move(input_r);
 }
 
 void
 move_tray(int input) {
-    f_tray.move(input);
-    b_tray.move(input);
+    tray.move(input);
 }
 
 
 void
 move_arms(int input) {
-    l_arm.move(input);
-    r_arm.move(input);
+    arm.move(input);
 }
 
 float
 get_arms() {
-    return l_arm.get_position();
+    return arm.get_position();
 }
 
 void
 set_arms(double position, int vel) {
-    l_arm.move_relative(position, vel);
-    r_arm.move_relative(position, vel);
+    arm.move_relative(position, vel);
 }
 
 
@@ -101,7 +98,7 @@ set_tray_pid(int input) {
 void
 tray_pid(void*) {
 	while (true) {
-		move_tray((t_target-f_tray.get_position())*0.5);
+		move_tray((t_target-tray.get_position())*0.5);
 		pros::delay(20);
 	}
 }
@@ -114,7 +111,7 @@ set_arm_pid(int input) {
 void
 arm_pid(void*) {
     while (true) {
-        move_arms((a_target-l_arm.get_position())*0.5);
+        move_arms((a_target-arm.get_position())*0.5);
         pros::delay(20);
     }
 }
@@ -122,6 +119,8 @@ arm_pid(void*) {
 
 void
 auton_tank(int input_l, int input_r) {
-    left_wheels.move(input_l);
-    right_wheels.move(input_r);
+    l_wheel_front.move(input_l);
+    l_wheel_back.move(input_l);
+    r_wheel_front.move(input_r);
+    r_wheel_back.move(input_r);
 }
