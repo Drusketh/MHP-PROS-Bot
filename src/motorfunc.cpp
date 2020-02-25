@@ -1,4 +1,4 @@
- #include "main.h"
+#include "main.h"
 
 #define L_WHEEL_FRONT_PORT 1
 #define L_WHEEL_BACK_PORT 2
@@ -88,6 +88,14 @@ move_intake(int input) {
     r_intake.move(input);
 }
 
+void
+move_auton_tank(int deg, int l_speed, int r_speed) {
+    l_wheel_front.move_absolute(deg, l_speed);
+    l_wheel_back.move_absolute(deg, l_speed);
+    r_wheel_front.move_absolute(deg, r_speed);
+    r_wheel_back.move_absolute(deg, r_speed);
+}
+
 //PID
 int t_target;
 void
@@ -113,13 +121,4 @@ arm_pid(void*) {
         move_arms((a_target-arm.get_position())*0.5);
         pros::delay(20);
     }
-}
-
-
-void
-auton_tank(int input_l, int input_r) {
-    l_wheel_front.move(input_l);
-    l_wheel_back.move(input_l);
-    r_wheel_front.move(input_r);
-    r_wheel_back.move(input_r);
 }
