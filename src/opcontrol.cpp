@@ -17,10 +17,10 @@ void opcontrol() {
         move_tank(controller.get_analog(ANALOG_LEFT_Y), controller.get_analog(ANALOG_RIGHT_Y));
 
 		if (controller.get_digital(DIGITAL_A)) {
-			move_tray(90);
+			move_tray(-127);
 		}
 		else if (controller.get_digital(DIGITAL_X)) {
-			move_tray(-90);
+			move_tray(127);
 		}
 		else {
 			move_tray(0);
