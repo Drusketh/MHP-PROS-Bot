@@ -21,22 +21,35 @@ void autonomous() {
 	pros::delay(500);
 
 	move_intake(105);
-	pros::delay(1500);
+	pros::delay(1000);
 
 	move_intake(-105);
-	move_arms(0);
+	move_arms(80);
 	pros::delay(1000);
 
 	move_intake(0);
+    move_arms(0);
 
 	//Drive Forward 3078deg
-	move_auton_tank(3078, 127, 127);
-	while (!((l_wheel_back.get_position() < 3083) && (l_wheel_back.get_position() > 3073))) {
+    int dist = 3078*2;
+	move_auton_tank(dist, dist, 127, 127);
+    move_intake(105);
+	while (!((l_wheel_back.get_position() < dist+5) && (l_wheel_back.get_position() > dist-5))) {
 	    pros::delay(2);
 	}
 
-	move_auton_tank(420, -127, 127);
-	while (!((l_wheel_back.get_position() < 3083) && (l_wheel_back.get_position() > 3073))) {
+    reset();
+    move_intake(0);
+
+    move_auton_tank(-dist, -dist, 127, 127);
+    while (!((l_wheel_back.get_position() < dist+5) && (l_wheel_back.get_position() > dist-5))) {
 	    pros::delay(2);
 	}
+
+    // reset();
+    // dist = 420;
+    // move_auton_tank(dist, -dist, 127, 127);
+    // while (!((l_wheel_back.get_position() < dist+5) && (l_wheel_back.get_position() > dist-5))) {
+	//     pros::delay(2);
+	// }
 }

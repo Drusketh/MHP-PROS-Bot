@@ -29,21 +29,14 @@ void opcontrol() {
 
 		if (controller.get_digital(DIGITAL_L1)) {
             move_arms(-90);
-            //arm_target = get_arms();
 		}
 		else if (controller.get_digital(DIGITAL_L2)) {
             move_arms(90);
-            //arm_target = get_arms();
 		}
 		else {
             move_arms(0);
-			//set_arms(arm_target, 90);
 		}
-
-        // while (!((get_arms() < arm_target + 5) && (get_arms() > arm_target - 5))) {
-        //     pros::delay(2);
-        // }
-        //controller.print(0, 0, "Counter: %d", arm_target);
+        
 
 		if (controller.get_digital(DIGITAL_R1)) {
 			move_intake(105);

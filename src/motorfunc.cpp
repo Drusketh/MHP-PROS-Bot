@@ -89,11 +89,11 @@ move_intake(int input) {
 }
 
 void
-move_auton_tank(int deg, int l_speed, int r_speed) {
-    l_wheel_front.move_absolute(deg, l_speed);
-    l_wheel_back.move_absolute(deg, l_speed);
-    r_wheel_front.move_absolute(deg, r_speed);
-    r_wheel_back.move_absolute(deg, r_speed);
+move_auton_tank(int l_deg, int r_deg, int l_speed, int r_speed) {
+    l_wheel_front.move_absolute(l_deg, l_speed);
+    l_wheel_back.move_absolute(l_deg, l_speed);
+    r_wheel_front.move_absolute(r_deg, r_speed);
+    r_wheel_back.move_absolute(r_deg, r_speed);
 }
 
 //PID
