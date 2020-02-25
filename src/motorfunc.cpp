@@ -1,19 +1,18 @@
-#include "main.h"
+ #include "main.h"
 
 #define L_WHEEL_FRONT_PORT 1
 #define L_WHEEL_BACK_PORT 2
 #define L_INTAKE_PORT 3
-#define ARM_PORT 4
-#define TRAY_PORT 7
+#define TRAY_PORT 4
+#define ARM_PORT 7
 #define R_INTAKE_PORT 8
 #define R_WHEEL_BACK_PORT 9
 #define R_WHEEL_FRONT_PORT 10
 
-
 pros::Motor l_wheel_front (L_WHEEL_FRONT_PORT, true);
 pros::Motor l_wheel_back (L_WHEEL_BACK_PORT, true);
 pros::Motor l_intake (L_INTAKE_PORT);
-pros::Motor arm (ARM_PORT);
+pros::Motor arm (ARM_PORT, true);
 pros::Controller controller (CONTROLLER_MASTER);
 pros::Motor tray (TRAY_PORT);
 pros::Motor r_intake (R_INTAKE_PORT, true);
