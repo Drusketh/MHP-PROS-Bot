@@ -16,11 +16,11 @@ void opcontrol() {
 	while (true) {
         move_tank(controller.get_analog(ANALOG_LEFT_Y), controller.get_analog(ANALOG_RIGHT_Y));
 
-		if (controller.get_digital(DIGITAL_A)) {
-			move_tray(-127);
-		}
-		else if (controller.get_digital(DIGITAL_X)) {
+		if (controller.get_digital(DIGITAL_X)) {
 			move_tray(127);
+		}
+        else if (controller.get_digital(DIGITAL_A)) {
+			move_tray(-127);
 		}
 		else {
 			move_tray(0);
@@ -36,7 +36,7 @@ void opcontrol() {
 		else {
             move_arms(0);
 		}
-        
+
 
 		if (controller.get_digital(DIGITAL_R1)) {
 			move_intake(105);
