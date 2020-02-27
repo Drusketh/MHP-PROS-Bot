@@ -48,6 +48,6 @@ void opcontrol() {
 			move_intake(0);
 		}
 
-     	pros::delay(5);
+     	pros::delay(20);
    	}
 }

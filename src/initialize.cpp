@@ -1,5 +1,8 @@
 #include "main.h"
+#include "gui.h"
 #include "display/lvgl.h"
+
+int autonmode = 0;
 
 lv_obj_t * autonBtn;
 lv_obj_t * autonBtnLabel;
@@ -26,12 +29,13 @@ static lv_res_t btn_click_action(lv_obj_t * btn)
 
 void initialize()
 {
-	reset();
+	//gui();
 	/*Set a non-white background color for the screen to see the alpha is working on the image*/
-	static lv_style_t new_style;
-	lv_style_copy(&new_style, &lv_style_scr);
-	new_style.body.main_color = LV_COLOR_MAKE(89, 31, 26);
-	lv_obj_set_style(lv_scr_act(), &new_style);
+	static lv_style_t background;
+	lv_style_copy(&background, &lv_style_scr);
+	background.body.main_color = LV_COLOR_MAKE(0, 0, 100);
+	background.body.grad_color = LV_COLOR_MAKE(0, 0, 100);
+	lv_obj_set_style(lv_scr_act(), &background);
 
 
 	lv_style_copy(&autonBtnStyleREL, &lv_style_plain);
@@ -50,6 +54,7 @@ void initialize()
     autonBtn = lv_btn_create(lv_scr_act(), NULL);
     lv_obj_set_free_num(autonBtn, 0);
     lv_btn_set_action(autonBtn, LV_BTN_ACTION_CLICK, btn_click_action);
+	lv_btn_set_style(autonBtn, LV_BTN_STATE_INA, &autonBtnStyleREL);
     lv_btn_set_style(autonBtn, LV_BTN_STYLE_REL, &autonBtnStyleREL);
     lv_btn_set_style(autonBtn, LV_BTN_STYLE_PR, &autonBtnStylePR);
     lv_obj_set_size(autonBtn, 200, 105);
@@ -61,6 +66,7 @@ void initialize()
 	testBtn = lv_btn_create(lv_scr_act(), NULL);
     lv_obj_set_free_num(testBtn, 0);
     lv_btn_set_action(testBtn, LV_BTN_ACTION_CLICK, btn_click_action);
+	lv_btn_set_style(testBtn, LV_BTN_STATE_INA, &autonBtnStyleREL);
     lv_btn_set_style(testBtn, LV_BTN_STYLE_REL, &autonBtnStyleREL);
 	lv_btn_set_style(testBtn, LV_BTN_STYLE_PR, &autonBtnStylePR);
     lv_obj_set_size(testBtn, 200, 105);
@@ -69,9 +75,9 @@ void initialize()
     testBtnLabel = lv_label_create(testBtn, NULL);
     lv_label_set_text(testBtnLabel, "Settings");
 
-    myLabel = lv_label_create(lv_scr_act(), NULL);
-    //lv_label_set_text(myLabel, "Button has not been clicked yet");
-    lv_obj_align(myLabel, NULL, LV_ALIGN_IN_LEFT_MID, 0, 0);
+    // myLabel = lv_label_create(lv_scr_act(), NULL);
+    // lv_label_set_text(myLabel, "Button has not been clicked yet");
+    // lv_obj_align(myLabel, NULL, LV_ALIGN_IN_LEFT_MID, 0, 0);
 }
 
 void disabled() {}

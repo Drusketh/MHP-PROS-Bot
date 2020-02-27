@@ -13,6 +13,17 @@
 
 
 void autonomous() {
+
+    // autonmode values:
+    // 00 = red laft
+    // 01 = red right
+    // 10 = blue left
+    // 11 = blue right
+
+    if (autonmode == 01){
+
+    }
+
 	pros::Motor l_wheel_back (2, true);
 	reset();
 
@@ -52,12 +63,12 @@ void autonomous() {
     while (!((l_wheel_back.get_position() < dist+5) && (l_wheel_back.get_position() > dist-5))) {
 	    pros::delay(2);
 	}
-	pros::delay(1700);
+	pros::delay(2000);
 
 	reset();
 	move_tray(0);
 	dist = 2000;
-    move_auton_tank(-dist, -dist, 127, 127);
+    move_auton_tank(-dist, -dist, 90, 90);
     while (!((l_wheel_back.get_position() < dist+5) && (l_wheel_back.get_position() > dist-5))) {
 	    pros::delay(2);
 	}
