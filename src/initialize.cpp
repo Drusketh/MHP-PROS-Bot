@@ -1,5 +1,5 @@
 #include "main.h"
-#include "gui.h"
+//#include "gui.h"
 #include "display/lvgl.h"
 
 int autonmode = 0;
