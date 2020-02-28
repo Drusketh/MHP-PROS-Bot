@@ -1,5 +1,4 @@
 #include "main.h"
-
 #include <stdio.h>
 #include "main.h"
 
@@ -71,11 +70,7 @@ void opcontrol() {
 
     lv_obj_t * img_var = lv_img_create(lv_scr_act(), NULL);
     lv_img_set_src(img_var, "S:/usd/MHP8373.bin");
-    lv_obj_set_pos(img_var, 0, 0);
-
-    while (true) {
-      pros::delay(20);
-    }
+    lv_obj_set_pos(img_var, 0, 10);
 
 	//DIGITAL_A = Lift Arms
 	//ANALOG_LEFT_Y & ANALOG_RIGHT_Y = Tank Drive
@@ -85,44 +80,44 @@ void opcontrol() {
 	//DIGITAL_R1 = Lift Ramp
 	//DIGITAL_R2 = Lower Ramp
 
-    // pros::Controller controller (CONTROLLER_MASTER);
-    //
-    // int arm_target = 0;
+    pros::Controller controller (CONTROLLER_MASTER);
+
+    int arm_target = 0;
 
 	while (true) {
-        // move_tank(controller.get_analog(ANALOG_LEFT_Y), controller.get_analog(ANALOG_RIGHT_Y));
-        //
-		// if (controller.get_digital(DIGITAL_X)) {
-		// 	move_tray(127);
-		// }
-        // else if (controller.get_digital(DIGITAL_A)) {
-		// 	move_tray(-127);
-		// }
-		// else {
-		// 	move_tray(0);
-		// }
-        //
-        //
-		// if (controller.get_digital(DIGITAL_L1)) {
-        //     move_arms(-90);
-		// }
-		// else if (controller.get_digital(DIGITAL_L2)) {
-        //     move_arms(90);
-		// }
-		// else {
-        //     move_arms(0);
-		// }
-        //
-        //
-		// if (controller.get_digital(DIGITAL_R1)) {
-		// 	move_intake(105);
-		// }
-		// else if (controller.get_digital(DIGITAL_R2)) {
-		// 	move_intake(-105);
-		// }
-		// else {
-		// 	move_intake(0);
-		// }
+        move_tank(controller.get_analog(ANALOG_LEFT_Y), controller.get_analog(ANALOG_RIGHT_Y));
+
+		if (controller.get_digital(DIGITAL_X)) {
+			move_tray(-127);
+		}
+        else if (controller.get_digital(DIGITAL_A)) {
+			move_tray(127);
+		}
+		else {
+			move_tray(0);
+		}
+
+
+		if (controller.get_digital(DIGITAL_L1)) {
+            move_arms(-90);
+		}
+		else if (controller.get_digital(DIGITAL_L2)) {
+            move_arms(90);
+		}
+		else {
+            move_arms(0);
+		}
+
+
+		if (controller.get_digital(DIGITAL_R1)) {
+			move_intake(105);
+		}
+		else if (controller.get_digital(DIGITAL_R2)) {
+			move_intake(-105);
+		}
+		else {
+			move_intake(0);
+		}
 
      	pros::delay(20);
    	}
